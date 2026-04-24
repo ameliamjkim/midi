@@ -1,0 +1,78 @@
+@use "../Button/_button-blueprint.scss" as *;
+
+/**
+ * Pill (Selectable)
+ *
+ * BEM structure:
+ *   .pill                  — block
+ *   .pill__label           — element
+ *   .pill--md              — block modifier (size; only md)
+ *   .pill--selected        — block modifier (selection state)
+ *
+ * Token architecture:
+ *   Pill consumes mapped tokens via component-scoped CSS variables
+ *   (--button-bg, --button-text, --button-border). The selected modifier only
+ *   overrides those scoped vars — never the CSS properties directly.
+ *   This is the 4th layer: primitive → alias → mapped → component-scoped.
+ *
+ * Blueprint:
+ *   Shares %button-blueprint-base with Button for structural DNA (layout,
+ *   focus handling, transitions). Pill is not a Button variant — the two
+ *   are sibling consumers of the same structural primitive.
+ */
+
+.pill {
+  /* --- Component-scoped defaults (unselected) --- */
+  --button-bg: var(--midi-color-surface);
+  --button-bg-hover: var(--midi-color-bg-primary-hover);
+  --button-text: var(--midi-color-text-primary);
+  --button-text-hover: var(--midi-color-text-primary);
+  --button-radius: var(--midi-radius-full);
+  --button-padding-x: var(--midi-space-lg);
+  --button-font-size: var(--midi-font-size-sm);
+  --button-line-height: var(--midi-line-height-sm);
+  /* Figma uses inset shadow as border so it doesn't add to box dimensions */
+  --button-shadow: var(--midi-shadow-xs-skeuomorphic);
+
+  @extend %button-blueprint-base;
+
+  /* No CSS border — shadow-based border keeps height at padding + line-height only */
+  border: none;
+
+  /* Figma pills are sized by padding-block, not a fixed height */
+  height: auto;
+  padding-block: var(--midi-space-xs);
+
+  /* Figma pills use SemiBold (600), not Medium (500) */
+  font-weight: var(--midi-font-weight-semibold);
+
+  /* Focus ring layered on top of the skeuomorphic shadow */
+  &:focus-visible {
+    box-shadow:
+      var(--midi-shadow-xs-skeuomorphic),
+      0 0 0 2px var(--midi-color-focus-ring);
+  }
+
+  /* --- Elements --- */
+
+  &__label {
+    display: inline-block;
+  }
+
+  /* --- Size modifiers --- */
+
+  &--md {
+    --button-padding-x: var(--midi-space-lg);
+    --button-font-size: var(--midi-font-size-sm);
+    --button-line-height: var(--midi-line-height-sm);
+  }
+
+  /* --- Selected modifier --- */
+
+  &--selected {
+    --button-bg: var(--midi-color-surface-selected);
+    --button-bg-hover: var(--midi-color-surface-selected-hover);
+    --button-text: var(--midi-color-text-inverse);
+    --button-text-hover: var(--midi-color-text-inverse);
+  }
+}

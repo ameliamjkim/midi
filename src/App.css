@@ -1,3 +1,130 @@
+/* ---- Showcase layout ---- */
+
+.showcase {
+  padding: 40px 32px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  text-align: left;
+}
+
+.showcase__title {
+  margin: 0;
+}
+
+.showcase__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--midi-space-xl);
+}
+
+.showcase__section-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  border-bottom: 1px solid var(--midi-color-border-tertiary);
+  padding-bottom: 8px;
+}
+
+.showcase__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--midi-space-lg);
+}
+
+.showcase__row--align-center {
+  align-items: center;
+}
+
+.showcase__stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--midi-space-xl);
+}
+
+.showcase__on-brand {
+  background: var(--midi-primary-400);
+  border-radius: var(--midi-radius-md);
+  padding: var(--midi-space-lg) var(--midi-space-xl);
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--midi-space-lg);
+  align-items: center;
+}
+
+.showcase__grid {
+  display: grid;
+  grid-template-columns: 48px repeat(6, 1fr);
+  gap: var(--midi-space-md);
+  align-items: center;
+}
+
+.showcase__grid-header {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text);
+  text-align: center;
+  word-break: break-all;
+}
+
+.showcase__grid-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.showcase__grid-cell {
+  display: flex;
+  justify-content: center;
+}
+
+/* ---- Pill showcase ---- */
+
+/* ---- Card showcase ---- */
+
+.showcase__symptom-card {
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.showcase__card-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--midi-space-md);
+}
+
+.showcase__card-title {
+  font-size: var(--midi-font-size-2xl);
+  line-height: var(--midi-line-height-2xl);
+  font-weight: var(--midi-font-weight-semibold);
+  color: var(--midi-color-text-primary);
+  margin: 0;
+}
+
+.showcase__card-subtitle {
+  font-size: var(--midi-font-size-md);
+  line-height: var(--midi-line-height-md);
+  color: var(--midi-color-text-subtle);
+  margin: 0;
+}
+
+.showcase__card-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--midi-space-md);
+}
+
+.showcase__card-action {
+  width: 100%;
+}
+
+/* ---- legacy counter ---- */
 .counter {
   font-size: 16px;
   padding: 5px 10px;

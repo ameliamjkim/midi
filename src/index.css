@@ -11,15 +11,154 @@
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: var(--midi-font-sans);
+  --midi-font-sans: "DM Sans", system-ui, sans-serif;
+  --heading: system-ui, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
-  font: 18px/145% var(--sans);
+  /* ========================================
+     Midi Mini DS — 3-layer token architecture
+     Primitive → Semantic alias → Mapped
+     Components ONLY consume mapped tokens.
+     ======================================== */
+
+  /* --- 1. Primitive: raw values from Figma Styles --- */
+  --midi-base-15: #eef5f7;
+  --midi-base-100: #bdc8cc;
+  --midi-base-200: #a9b5ba;
+  --midi-base-300: #8998a1;
+  --midi-base-800: #283c4e;
+  --midi-base-900: #1b2f43;
+  --midi-white: #ffffff;
+  --midi-primary-200: #88b8fb;
+  --midi-primary-400: #579fff;
+  --midi-primary-600: #006af9;
+  /* Neutral scale (fg-disabled_subtle / border-tertiary / bg-secondary-hover) */
+  --midi-neutral-50: #d3dde1;
+  /* Text scale (Colors/Text/text-secondary 700 and hover) */
+  --midi-text-700: #6b7c88;
+  --midi-text-600: #415465;
+  /* Background hover (Colors/Background/bg-primary-hover + text-secondary_on-brand) */
+  --midi-bg-primary-hover: #e7f0f3;
+
+  /* --- 2. Semantic alias: category + intensity --- */
+  --midi-color-bg-strong: var(--midi-white);
+  --midi-color-bg-medium: var(--midi-base-15);
+  --midi-color-fg-strong: var(--midi-base-900);
+  --midi-color-fg-medium: var(--midi-base-800);
+  --midi-color-fg-soft: var(--midi-base-300);
+  --midi-color-fg-inverse: var(--midi-white);
+  --midi-color-stroke-soft: var(--midi-base-100);
+  --midi-color-stroke-medium: var(--midi-base-300);
+  --midi-color-action: var(--midi-primary-400);
+  --midi-color-action-hover: var(--midi-primary-200);
+  /* Disabled (Colors/Foreground/fg-disabled, Colors/Background/bg-disabled) */
+  --midi-color-fg-disabled: var(--midi-base-100);
+  --midi-color-fg-disabled-subtle: var(--midi-neutral-50);
+  --midi-color-bg-disabled: var(--midi-base-15);
+  --midi-color-border-disabled-subtle: var(--midi-base-15);
+  /* Hover surfaces (Colors/Background/bg-primary-hover, bg-secondary-hover) */
+  --midi-color-bg-primary-hover: var(--midi-bg-primary-hover);
+  --midi-color-bg-secondary-hover: var(--midi-neutral-50);
+
+  /* --- 3. Mapped: role-based, consumed by components --- */
+
+  /* Surface */
+  --midi-color-surface: var(--midi-color-bg-strong);
+  --midi-color-surface-muted: var(--midi-color-bg-medium);
+  --midi-color-surface-selected: var(--midi-color-fg-medium);
+  --midi-color-surface-selected-hover: var(--midi-color-fg-strong);
+
+  /* Focus ring */
+  --midi-green-300: #b6e7a0;
+  --midi-color-focus-ring: var(--midi-green-300);
+
+  /* Text */
+  --midi-color-text-primary: var(--midi-color-fg-strong);
+  --midi-color-text-secondary: var(
+    --midi-text-700
+  ); /* Colors/Text/text-secondary (700) */
+  --midi-color-text-secondary-hover: var(
+    --midi-text-600
+  ); /* Colors/Text/text-secondary_hover */
+  --midi-color-text-subtle: var(--midi-color-fg-soft);
+  --midi-color-text-inverse: var(--midi-color-fg-inverse);
+  --midi-color-text-on-brand: var(
+    --midi-bg-primary-hover
+  ); /* Colors/Text/text-secondary_on-brand */
+
+  /* Foreground hover tiers */
+  --midi-color-fg-secondary-hover: var(
+    --midi-base-800
+  ); /* Colors/Foreground/fg-secondary_hover */
+  --midi-color-fg-quaternary-hover: var(
+    --midi-text-700
+  ); /* Colors/Foreground/fg-quaternary_hover */
+
+  /* Border */
+  --midi-color-border-subtle: var(--midi-color-stroke-soft);
+  --midi-color-border-strong: var(--midi-color-stroke-medium);
+  --midi-color-border-tertiary: var(
+    --midi-neutral-50
+  ); /* Colors/Border/border-tertiary */
+
+  /* Action (CTA / buttons) */
+  --midi-color-action-primary: var(--midi-color-action);
+  --midi-color-action-primary-hover: var(--midi-color-action-hover);
+
+  /* --- Typography --- */
+  --midi-font-size-sm: 14px;
+  --midi-font-size-md: 16px;
+  --midi-font-size-xl: 22px;
+  --midi-font-size-2xl: 24px;
+  --midi-line-height-sm: 20px;
+  --midi-line-height-md: 24px;
+  --midi-line-height-2xl: 32px;
+  --midi-font-weight-regular: 400;
+  --midi-font-weight-medium: 500;
+  --midi-font-weight-semibold: 600;
+
+  /* --- Shadows --- */
+  /* Raw color primitives (Colors/Effects/Shadows/*) */
+  --midi-shadow-color: rgba(10, 13, 18, 0.05);
+  --midi-shadow-border-color: rgba(10, 13, 18, 0.18);
+  /* Composed shadow tokens (Shadows/shadow-xs, Shadows/shadow-xs-skeuomorphic) */
+  --midi-shadow-xs: 0 1px 2px 0 var(--midi-shadow-color);
+  --midi-shadow-xs-skeuomorphic:
+    0 1px 2px 0 var(--midi-shadow-color),
+    inset 0 0 0 1px var(--midi-shadow-border-color),
+    inset 0 -2px 0 0 var(--midi-shadow-color);
+  /* Focus ring tokens (Focus rings/focus-ring, focus-ring-shadow-xs-skeuomorphic) */
+  --midi-shadow-focus-ring:
+    0 0 0 2px var(--midi-color-surface), 0 0 0 4px var(--midi-color-focus-ring);
+  --midi-shadow-focus-ring-skeuomorphic:
+    0 1px 2px 0 var(--midi-shadow-color),
+    inset 0 0 0 1px var(--midi-shadow-border-color),
+    inset 0 -2px 0 0 var(--midi-shadow-color),
+    0 0 0 2px var(--midi-color-surface), 0 0 0 4px var(--midi-color-focus-ring);
+
+  /* --- Spacing (aligned to Figma: spacing-xxs…xl) --- */
+  --midi-space-xxs: 2px;
+  --midi-space-xs: 4px;
+  --midi-space-sm: 6px;
+  --midi-space-md: 8px;
+  --midi-space-lg: 12px;
+  --midi-space-xl: 16px;
+  /* Layout-only tokens (beyond Figma component spacing) */
+  --midi-space-2xl: 24px;
+  --midi-space-3xl: 32px;
+
+  /* --- Radius --- */
+  --midi-radius-sm: 6px;
+  --midi-radius-md: 8px;
+  --midi-radius-lg: 16px;
+  --midi-radius-full: 9999px;
+
+  font: 18px/145% var(--midi-font-sans);
   letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
+  color-scheme: light;
+  color: var(--midi-color-text-primary);
+  background: var(--midi-color-surface);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -82,6 +221,7 @@ h1 {
     margin: 20px 0;
   }
 }
+
 h2 {
   font-size: 24px;
   line-height: 118%;
@@ -91,6 +231,7 @@ h2 {
     font-size: 20px;
   }
 }
+
 p {
   margin: 0;
 }

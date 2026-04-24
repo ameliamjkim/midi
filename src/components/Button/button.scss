@@ -1,0 +1,162 @@
+@use "./_button-blueprint.scss" as *;
+
+/**
+ * Button
+ *
+ * BEM structure:
+ *   .button                      — block
+ *   .button__label               — element
+ *   .button__icon                — element
+ *   .button__icon--leading       — element modifier
+ *   .button__icon--trailing      — element modifier
+ *   .button__spinner             — element
+ *   .button--primary             — block modifier (hierarchy)
+ *   .button--secondary
+ *   .button--tertiary
+ *   .button--link-color
+ *   .button--link-gray
+ *   .button--sm / md / lg / xl   — block modifier (size)
+ *   .button--icon-only           — block modifier
+ *   .button--loading             — block modifier
+ *
+ * All color choices flow through component-scoped CSS variables
+ * (--button-bg, --button-text, --button-border, etc.), which hierarchy
+ * modifiers override. This is the 4th layer of the token architecture:
+ *   primitive → alias → mapped → component-scoped.
+ */
+
+.button {
+  /* --- Component-scoped defaults (overridden by hierarchy modifiers) --- */
+  --button-bg: var(--midi-color-action-primary);
+  --button-bg-hover: var(--midi-color-action-primary-hover);
+  --button-text: var(--midi-color-text-inverse);
+  --button-text-hover: var(--midi-color-text-inverse);
+  --button-border: var(--midi-color-action-primary);
+  --button-border-hover: var(--midi-color-action-primary-hover);
+  --button-shadow: var(--midi-shadow-xs-skeuomorphic);
+
+  /* Default size = md */
+  --button-padding-y: 10px;
+  --button-padding-x: 14px;
+  --button-gap: var(--midi-space-xs);
+  --button-font-size: var(--midi-font-size-sm);
+  --button-line-height: var(--midi-line-height-sm);
+
+  @extend %button-blueprint-base;
+
+  /* --- Elements --- */
+
+  &__label {
+    display: inline-block;
+  }
+
+  &__icon {
+    @extend %button-blueprint-icon;
+  }
+
+  &__spinner {
+    @extend %button-blueprint-spinner;
+  }
+
+  /* --- Hierarchy modifiers --- */
+
+  &--primary {
+    --button-bg: var(--midi-color-action-primary);
+    --button-bg-hover: var(--midi-primary-200);
+    --button-text: var(--midi-color-text-inverse);
+    --button-text-hover: var(--midi-color-text-inverse);
+    --button-border: var(--midi-color-action-primary);
+    --button-border-hover: var(--midi-primary-200);
+  }
+
+  &--secondary {
+    --button-bg: var(--midi-color-surface);
+    --button-bg-hover: var(--midi-color-bg-secondary-hover);
+    --button-text: var(--midi-color-text-subtle);
+    --button-text-hover: var(--midi-color-text-subtle);
+    --button-border: var(--midi-color-border-strong);
+    --button-border-hover: var(--midi-color-border-strong);
+  }
+
+  &--tertiary {
+    --button-bg: transparent;
+    --button-bg-hover: var(--midi-color-surface-muted);
+    --button-text: var(--midi-color-text-primary);
+    --button-text-hover: var(--midi-color-text-primary);
+    --button-border: transparent;
+    --button-border-hover: transparent;
+    --button-shadow: 0 0 0 0 transparent;
+  }
+
+  &--link-color {
+    --button-bg: transparent;
+    --button-bg-hover: transparent;
+    --button-text: var(--midi-color-action-primary);
+    --button-text-hover: var(--midi-color-action-primary-hover);
+    --button-border: transparent;
+    --button-border-hover: transparent;
+    --button-shadow: 0 0 0 0 transparent;
+    /* Link buttons are inline — no block padding */
+    --button-padding-y: 0;
+    --button-padding-x: 0;
+  }
+
+  &--link-gray {
+    --button-bg: transparent;
+    --button-bg-hover: transparent;
+    --button-text: var(--midi-color-text-primary);
+    --button-text-hover: var(--midi-color-fg-quaternary-hover);
+    --button-border: transparent;
+    --button-border-hover: transparent;
+    --button-shadow: 0 0 0 0 transparent;
+    --button-padding-y: 0;
+    --button-padding-x: 0;
+  }
+
+  /* --- Size modifiers (padding-x, padding-y, gap, font from Figma) --- */
+
+  &--sm {
+    --button-padding-y: var(--midi-space-md);
+    --button-padding-x: var(--midi-space-lg);
+    --button-gap: var(--midi-space-xs);
+    --button-font-size: var(--midi-font-size-sm);
+    --button-line-height: var(--midi-line-height-sm);
+  }
+
+  &--md {
+    --button-padding-y: 10px;
+    --button-padding-x: 14px;
+    --button-gap: var(--midi-space-xs);
+    --button-font-size: var(--midi-font-size-sm);
+    --button-line-height: var(--midi-line-height-sm);
+  }
+
+  &--lg {
+    --button-padding-y: 10px;
+    --button-padding-x: var(--midi-space-xl);
+    --button-gap: var(--midi-space-sm);
+    --button-font-size: var(--midi-font-size-md);
+    --button-line-height: var(--midi-line-height-md);
+  }
+
+  &--xl {
+    --button-padding-y: var(--midi-space-lg);
+    --button-padding-x: 18px;
+    --button-gap: var(--midi-space-sm);
+    --button-font-size: var(--midi-font-size-md);
+    --button-line-height: var(--midi-line-height-md);
+  }
+
+  /* --- Icon-only modifier --- */
+
+  &--icon-only {
+    aspect-ratio: 1;
+    padding-inline: var(--button-padding-y);
+  }
+
+  /* --- Loading modifier --- */
+
+  &--loading {
+    cursor: wait;
+  }
+}
