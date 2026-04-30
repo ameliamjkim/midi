@@ -1,0 +1,12 @@
+.component-page__back {
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-subtle);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-text-secondary);
+  }
+}

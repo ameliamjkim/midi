@@ -1,0 +1,73 @@
+%selectable-blueprint-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--selectable-gap, var(--space-xs));
+  padding-block: var(--selectable-padding-y);
+  padding-inline: var(--selectable-padding-x);
+  border-radius: var(--selectable-radius, var(--radius-sm));
+  background: var(--selectable-bg);
+  color: var(--selectable-text);
+  border: 1px solid var(--selectable-border);
+  box-shadow: var(--selectable-shadow, none);
+  font-family: var(--font-sans);
+  font-size: var(--selectable-font-size, var(--font-size-sm));
+  line-height: var(--selectable-line-height, var(--line-height-sm));
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease;
+
+  &:hover:not(:disabled) {
+    background: var(--selectable-bg-hover, var(--selectable-bg));
+    color: var(--selectable-text-hover, var(--selectable-text));
+    border-color: var(--selectable-border-hover, var(--selectable-border));
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--color-focus-ring),
+      var(--selectable-shadow, 0 0 0 0 transparent);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+%selectable-blueprint-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+
+  > svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+%selectable-blueprint-spinner {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: selectable-spinner-rotate 0.6s linear infinite;
+}
+
+@keyframes selectable-spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}

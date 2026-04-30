@@ -1,0 +1,78 @@
+@use "../shared/_selectable-blueprint.scss" as *;
+
+/**
+ * Pill (Selectable)
+ *
+ * BEM structure:
+ *   .pill                  — block
+ *   .pill__label           — element
+ *   .pill--md              — block modifier (size; only md)
+ *   .pill--selected        — block modifier (selection state)
+ *
+ * Token architecture:
+ *   Pill consumes mapped tokens via component-scoped CSS variables
+ *   (--selectable-bg, --selectable-text, --selectable-border). The selected modifier only
+ *   overrides those scoped vars — never the CSS properties directly.
+ *   This is the 4th layer: primitive → alias → mapped → component-scoped.
+ *
+ * Blueprint:
+ *   Shares %selectable-blueprint-base with Button for structural DNA (layout,
+ *   focus handling, transitions). Pill is not a Button variant — the two
+ *   are sibling consumers of the same structural primitive.
+ */
+
+.pill {
+  /* --- Component-scoped defaults (unselected) --- */
+  --selectable-bg: var(--color-surface);
+  --selectable-bg-hover: var(--color-bg-primary-hover);
+  --selectable-text: var(--color-text-primary);
+  --selectable-text-hover: var(--color-text-primary);
+  --selectable-radius: var(--radius-full);
+  --selectable-padding-x: var(--space-lg);
+  --selectable-font-size: var(--font-size-sm);
+  --selectable-line-height: var(--line-height-sm);
+  /* Figma uses inset shadow as border so it doesn't add to box dimensions */
+  --selectable-shadow: var(--shadow-xs-skeuomorphic);
+
+  @extend %selectable-blueprint-base;
+
+  /* No CSS border — shadow-based border keeps height at padding + line-height only */
+  border: none;
+
+  /* Figma pills are sized by padding-block, not a fixed height */
+  height: auto;
+  padding-block: var(--space-xs);
+
+  /* Figma pills use SemiBold (600), not Medium (500) */
+  font-weight: var(--font-weight-semibold);
+
+  /* Focus ring layered on top of the skeuomorphic shadow */
+  &:focus-visible {
+    box-shadow:
+      var(--shadow-xs-skeuomorphic),
+      0 0 0 2px var(--color-focus-ring);
+  }
+
+  /* --- Elements --- */
+
+  &__label {
+    display: inline-block;
+  }
+
+  /* --- Size modifiers --- */
+
+  &--md {
+    --selectable-padding-x: var(--space-lg);
+    --selectable-font-size: var(--font-size-sm);
+    --selectable-line-height: var(--line-height-sm);
+  }
+
+  /* --- Selected modifier --- */
+
+  &--selected {
+    --selectable-bg: var(--color-surface-selected);
+    --selectable-bg-hover: var(--color-surface-selected-hover);
+    --selectable-text: var(--color-text-inverse);
+    --selectable-text-hover: var(--color-text-inverse);
+  }
+}

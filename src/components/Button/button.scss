@@ -1,0 +1,162 @@
+@use "../shared/_selectable-blueprint.scss" as *;
+
+/**
+ * Button
+ *
+ * BEM structure:
+ *   .button                      — block
+ *   .button__label               — element
+ *   .button__icon                — element
+ *   .button__icon--leading       — element modifier
+ *   .button__icon--trailing      — element modifier
+ *   .button__spinner             — element
+ *   .button--primary             — block modifier (hierarchy)
+ *   .button--secondary
+ *   .button--tertiary
+ *   .button--link-color
+ *   .button--link-gray
+ *   .button--sm / md / lg / xl   — block modifier (size)
+ *   .button--icon-only           — block modifier
+ *   .button--loading             — block modifier
+ *
+ * All color choices flow through component-scoped CSS variables
+ * (--selectable-bg, --selectable-text, --selectable-border, etc.), which hierarchy
+ * modifiers override. This is the 4th layer of the token architecture:
+ *   primitive → alias → mapped → component-scoped.
+ */
+
+.button {
+  /* --- Component-scoped defaults (overridden by hierarchy modifiers) --- */
+  --selectable-bg: var(--color-action-primary);
+  --selectable-bg-hover: var(--color-action-primary-hover);
+  --selectable-text: var(--color-text-inverse);
+  --selectable-text-hover: var(--color-text-inverse);
+  --selectable-border: var(--color-action-primary);
+  --selectable-border-hover: var(--color-action-primary-hover);
+  --selectable-shadow: var(--shadow-xs-skeuomorphic);
+
+  /* Default size = md */
+  --selectable-padding-y: 10px;
+  --selectable-padding-x: 14px;
+  --selectable-gap: var(--space-xs);
+  --selectable-font-size: var(--font-size-sm);
+  --selectable-line-height: var(--line-height-sm);
+
+  @extend %selectable-blueprint-base;
+
+  /* --- Elements --- */
+
+  &__label {
+    display: inline-block;
+  }
+
+  &__icon {
+    @extend %selectable-blueprint-icon;
+  }
+
+  &__spinner {
+    @extend %selectable-blueprint-spinner;
+  }
+
+  /* --- Hierarchy modifiers --- */
+
+  &--primary {
+    --selectable-bg: var(--color-action-primary);
+    --selectable-bg-hover: var(--primary-200);
+    --selectable-text: var(--color-text-inverse);
+    --selectable-text-hover: var(--color-text-inverse);
+    --selectable-border: var(--color-action-primary);
+    --selectable-border-hover: var(--primary-200);
+  }
+
+  &--secondary {
+    --selectable-bg: var(--color-surface);
+    --selectable-bg-hover: var(--color-bg-secondary-hover);
+    --selectable-text: var(--color-text-subtle);
+    --selectable-text-hover: var(--color-text-subtle);
+    --selectable-border: var(--color-border-strong);
+    --selectable-border-hover: var(--color-border-strong);
+  }
+
+  &--tertiary {
+    --selectable-bg: transparent;
+    --selectable-bg-hover: var(--color-surface-muted);
+    --selectable-text: var(--color-text-primary);
+    --selectable-text-hover: var(--color-text-primary);
+    --selectable-border: transparent;
+    --selectable-border-hover: transparent;
+    --selectable-shadow: 0 0 0 0 transparent;
+  }
+
+  &--link-color {
+    --selectable-bg: transparent;
+    --selectable-bg-hover: transparent;
+    --selectable-text: var(--color-action-primary);
+    --selectable-text-hover: var(--color-action-primary-hover);
+    --selectable-border: transparent;
+    --selectable-border-hover: transparent;
+    --selectable-shadow: 0 0 0 0 transparent;
+    /* Link buttons are inline — no block padding */
+    --selectable-padding-y: 0;
+    --selectable-padding-x: 0;
+  }
+
+  &--link-gray {
+    --selectable-bg: transparent;
+    --selectable-bg-hover: transparent;
+    --selectable-text: var(--color-text-primary);
+    --selectable-text-hover: var(--color-fg-quaternary-hover);
+    --selectable-border: transparent;
+    --selectable-border-hover: transparent;
+    --selectable-shadow: 0 0 0 0 transparent;
+    --selectable-padding-y: 0;
+    --selectable-padding-x: 0;
+  }
+
+  /* --- Size modifiers (padding-x, padding-y, gap, font from Figma) --- */
+
+  &--sm {
+    --selectable-padding-y: var(--space-md);
+    --selectable-padding-x: var(--space-lg);
+    --selectable-gap: var(--space-xs);
+    --selectable-font-size: var(--font-size-sm);
+    --selectable-line-height: var(--line-height-sm);
+  }
+
+  &--md {
+    --selectable-padding-y: 10px;
+    --selectable-padding-x: 14px;
+    --selectable-gap: var(--space-xs);
+    --selectable-font-size: var(--font-size-sm);
+    --selectable-line-height: var(--line-height-sm);
+  }
+
+  &--lg {
+    --selectable-padding-y: 10px;
+    --selectable-padding-x: var(--space-xl);
+    --selectable-gap: var(--space-sm);
+    --selectable-font-size: var(--font-size-md);
+    --selectable-line-height: var(--line-height-md);
+  }
+
+  &--xl {
+    --selectable-padding-y: var(--space-lg);
+    --selectable-padding-x: 18px;
+    --selectable-gap: var(--space-sm);
+    --selectable-font-size: var(--font-size-md);
+    --selectable-line-height: var(--line-height-md);
+  }
+
+  /* --- Icon-only modifier --- */
+
+  &--icon-only {
+    aspect-ratio: 1;
+    padding-inline: var(--selectable-padding-y);
+  }
+
+  /* --- Loading modifier --- */
+
+  &--loading {
+    cursor: wait;
+  }
+}
